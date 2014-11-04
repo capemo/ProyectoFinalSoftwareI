@@ -1,34 +1,32 @@
 package view;
 
 import java.awt.Component;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-
-import model.Materia;
+import net.codejava.model.Country;
 
 /**
  * Custom renderer to display a country's flag alongside its name
  *
  * @author wwww.codejava.net
  */
-public class CountryRenderer extends JLabel implements ListCellRenderer<Materia> {
+public class CountryRenderer extends JLabel implements ListCellRenderer<Country> {
 
     public CountryRenderer() {
         setOpaque(true);
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Materia> list, Materia materia, int index,
+    public Component getListCellRendererComponent(JList<? extends Country> list, Country country, int index,
             boolean isSelected, boolean cellHasFocus) {
 
-        String code = materia.getIdMateria();
+        String code = country.getCode();
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/" + code + ".png"));
 
         setIcon(imageIcon);
-        setText(materia.getNombreMateria());
+        setText(country.getName());
 
         if (isSelected) {
             setBackground(list.getSelectionBackground());
