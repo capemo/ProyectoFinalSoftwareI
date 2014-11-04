@@ -1,11 +1,14 @@
 package view;
-
 import java.awt.Color;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+
+import view.MateriaCellRender;
+import model.Materia;
 
 /**
  * JList Custom Renderer Example
@@ -14,31 +17,25 @@ import javax.swing.SwingUtilities;
  */
 public class JListCustomRendererExample extends JFrame {
 
-    public JListCustomRendererExample() {
-        Country us = new Country("USA", "us");
-        Country in = new Country("India", "in");
-        Country vn = new Country("Vietnam", "vn");
-        Country ca = new Country("Canada", "ca");
-        Country de = new Country("Denmark", "de");
-        Country fr = new Country("France", "fr");
-        Country gb = new Country("Great Britain", "gb");
-        Country jp = new Country("Japan", "jp");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public JListCustomRendererExample() {
+        Materia us = new Materia("1", "us",null,3, null);
+        Materia u = new Materia("2", "us",null,3, null);
+       
 
         //create the model and add elements
-        DefaultListModel<Country> listModel = new DefaultListModel<>();
+        DefaultListModel<Materia> listModel = new DefaultListModel<>();
         listModel.addElement(us);
-        listModel.addElement(in);
-        listModel.addElement(vn);
-        listModel.addElement(ca);
-        listModel.addElement(de);
-        listModel.addElement(fr);
-        listModel.addElement(gb);
-        listModel.addElement(jp);
+        listModel.addElement(u);
 
         //create the list
-        JList<Country> countryList = new JList<>(listModel);
+        JList<Materia> countryList = new JList<>(listModel);
         add(new JScrollPane(countryList));
-        countryList.setCellRenderer(new CountryRenderer());
+        countryList.setCellRenderer(new MateriaCellRender());
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("JList Renderer Example");

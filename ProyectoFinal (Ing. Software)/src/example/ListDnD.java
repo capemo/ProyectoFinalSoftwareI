@@ -21,7 +21,7 @@ public class ListDnD {
             model.addElement(s + " " + (j+1));
         JList list = new JList(model);
         list.setName(s);
-        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.setTransferHandler(arrayListHandler);
         list.setDragEnabled(true);
         return new JScrollPane(list);
