@@ -1,4 +1,4 @@
-package net.codejava.swing;
+package view;
 
 import java.awt.Color;
 import javax.swing.DefaultListModel;
@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-
-import net.codejava.model.Country;
 
 /**
  * JList Custom Renderer Example
