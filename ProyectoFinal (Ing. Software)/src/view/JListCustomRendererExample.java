@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 public class JListCustomRendererExample extends JFrame {
 
     public JListCustomRendererExample() {
-        Country us = new Country("USA", "us");
+        Country us = new Country("USA ", "us");
         Country in = new Country("India", "in");
         Country vn = new Country("Vietnam", "vn");
         Country ca = new Country("Canada", "ca");
