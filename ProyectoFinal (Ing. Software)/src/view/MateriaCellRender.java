@@ -28,7 +28,7 @@ public class MateriaCellRender extends JLabel implements ListCellRenderer<Materi
          Color background;
          Color foreground;
 
-         // check if this cell represents the current DnD drop location
+         // check if this cell represents the current DnD drop location 
          JList.DropLocation dropLocation = list.getDropLocation();
          if (dropLocation != null
                  && !dropLocation.isInsert()
