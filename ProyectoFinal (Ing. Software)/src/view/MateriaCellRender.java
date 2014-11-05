@@ -14,9 +14,6 @@ import model.Materia;
 
 public class MateriaCellRender extends JLabel implements ListCellRenderer<Materia>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
