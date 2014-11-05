@@ -22,9 +22,9 @@ public class MateriaCellRender extends JLabel implements ListCellRenderer<Materi
 			boolean isSelected, boolean cellHasFocus) {
 		 setText("<html>"+materia.getIdMateria()+"<br>"+materia.getNombreMateria()+"<br>"+materia.getCreditos()+"</html>");
 		 setHorizontalAlignment(SwingConstants.CENTER);
-		 setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		 setBorder(BorderFactory.createLineBorder(Color.lightGray));
 		 
-		 setPreferredSize(new Dimension(100,100));
+		 setPreferredSize(new Dimension(100,50));
          Color background;
          Color foreground;
 

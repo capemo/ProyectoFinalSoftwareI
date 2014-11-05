@@ -43,7 +43,6 @@ public class StudentProgramLoader {
 						"Error while reading file line by line:"
 								+ e.getMessage());
 			}
-
 		}
 	}
 }
