@@ -1,5 +1,15 @@
 package model;
 
 public enum Periodo {
-	I, II
+	I {
+		public String toString() {
+			return "I";
+		}
+	},
+	II {
+		public String toString() {
+			return "II";
+		}
+	},
+	NA
 }

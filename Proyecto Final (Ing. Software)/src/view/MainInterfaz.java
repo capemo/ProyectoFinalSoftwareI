@@ -1,5 +1,9 @@
 package view;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.swing.AbstractListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -14,12 +18,10 @@ import javax.swing.SwingConstants;
 public class MainInterfaz extends JFrame {
 
 	private JPanel container;
-    private JButton jButton1;
-    private JButton jButton2;
-    private JButton jButton3;
+    private JButton btnCargarPrograma;
+    private JButton btnCargarConfig;
+    private JButton btnGuardarConfig;
     private JLabel jLabel1;
-    private JLabel jLabel10;
-    private JLabel jLabel11;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
@@ -28,8 +30,8 @@ public class MainInterfaz extends JFrame {
     private JLabel jLabel7;
     private JLabel jLabel8;
     private JLabel jLabel9;
+    private JLabel jLabel10;
     private JList jList1;
-    private JList jList10;
     private JList jList2;
     private JList jList3;
     private JList jList4;
@@ -38,6 +40,7 @@ public class MainInterfaz extends JFrame {
     private JList jList7;
     private JList jList8;
     private JList jList9;
+    private JList jList10;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane10;
     private JScrollPane jScrollPane2;
@@ -53,6 +56,7 @@ public class MainInterfaz extends JFrame {
     private JScrollPane jScrollPanePrograma;
     private JLabel lblMateriasVistas;
     private JLabel lblNombrePrograma;
+    private JLabel lblMateriasPorVer;
     private JList lstMateriasVistas;
     private JList lstMateriasPorVer;
     private JPanel panelBotones;
@@ -104,14 +108,14 @@ public class MainInterfaz extends JFrame {
         jLabel10 = new JLabel();
         lblNombrePrograma = new JLabel();
         panelBotones = new JPanel();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jButton3 = new JButton();
+        btnCargarPrograma = new JButton();
+        btnCargarConfig = new JButton();
+        btnGuardarConfig = new JButton();
         jScrollPaneMateriasPorVer = new JScrollPane();
-        jLabel11 = new JLabel();
+        lblMateriasPorVer = new JLabel();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Program Manager 1.0");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Program Manager 1.0");
 
         lblMateriasVistas.setHorizontalAlignment(SwingConstants.CENTER);
         lblMateriasVistas.setText("MATERIAS VISTAS");
@@ -139,7 +143,7 @@ public class MainInterfaz extends JFrame {
                 .addComponent(jScrollPaneMateriasVistas, GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
         );
 
-        panelPrograma.setPreferredSize(new java.awt.Dimension(1685, 430));
+        panelPrograma.setPreferredSize(new java.awt.Dimension(1684, 430));
 
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.setText("jLabel1");
@@ -339,29 +343,29 @@ public class MainInterfaz extends JFrame {
         lblNombrePrograma.setText("NOMBRE PROGRAMA");
         lblNombrePrograma.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        jButton1.setText("CARGAR PROGRAMA");
+        btnCargarPrograma.setText("CARGAR PROGRAMA");
 
-        jButton2.setText("CARGAR CONFIG.");
+        btnCargarConfig.setText("CARGAR CONFIG.");
 
-        jButton3.setText("GUARDAR CONFIG.");
+        btnGuardarConfig.setText("GUARDAR CONFIG.");
 
         GroupLayout panelBotonesLayout = new GroupLayout(panelBotones);
         panelBotones.setLayout(panelBotonesLayout);
         panelBotonesLayout.setHorizontalGroup(
             panelBotonesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-            .addComponent(jButton2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCargarPrograma, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+            .addComponent(btnCargarConfig, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnGuardarConfig, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnCargarPrograma)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnCargarConfig)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3))
+                .addComponent(btnGuardarConfig))
         );
 
         String opciones[]={"hola","mundo","32"};
@@ -370,9 +374,9 @@ public class MainInterfaz extends JFrame {
         lstMateriasPorVer.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         jScrollPaneMateriasPorVer.setViewportView(lstMateriasPorVer);
         
-        jLabel11.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel11.setText("MATERIAS POR VER");
-        jLabel11.setHorizontalTextPosition(SwingConstants.CENTER);
+        lblMateriasPorVer.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMateriasPorVer.setText("MATERIAS POR VER");
+        lblMateriasPorVer.setHorizontalTextPosition(SwingConstants.CENTER);
 
         GroupLayout containerLayout = new GroupLayout(container);
         container.setLayout(containerLayout);
@@ -389,7 +393,7 @@ public class MainInterfaz extends JFrame {
                     .addGroup(containerLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPanePrograma, GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
                         .addComponent(jScrollPaneMateriasPorVer)
-                        .addComponent(jLabel11, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblMateriasPorVer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         containerLayout.setVerticalGroup(
@@ -401,7 +405,7 @@ public class MainInterfaz extends JFrame {
                     .addComponent(panelMateriasVistas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPanePrograma, GroupLayout.PREFERRED_SIZE, 452, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
+                .addComponent(lblMateriasPorVer)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(containerLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelBotones, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -425,7 +429,31 @@ public class MainInterfaz extends JFrame {
                 .addComponent(container, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        this.pack();
+        this.setSize(new Dimension(1366,660));
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+    }
+    
+    public void configureProgramLabelsText(){
+    	ArrayList<Integer> periodoI = new ArrayList<Integer>();
+		periodoI.add(Calendar.JANUARY);
+		periodoI.add(Calendar.FEBRUARY);
+		periodoI.add(Calendar.MARCH);
+		periodoI.add(Calendar.APRIL);
+		periodoI.add(Calendar.MAY);
+		periodoI.add(Calendar.JUNE);
+		ArrayList<Integer> periodoII = new ArrayList<Integer>();
+		periodoII.add(Calendar.JULY);
+		periodoII.add(Calendar.AUGUST);
+		periodoII.add(Calendar.SEPTEMBER);
+		periodoII.add(Calendar.OCTOBER);
+		periodoII.add(Calendar.NOVEMBER);
+		periodoII.add(Calendar.DECEMBER);
+		
+		if (periodoI.contains(Calendar.getInstance().MONTH)) {
+			jLabel1.setText(Calendar.getInstance().YEAR);
+		}
     }
                        
 }
