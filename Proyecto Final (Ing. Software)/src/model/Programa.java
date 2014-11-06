@@ -3,17 +3,24 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Programa implements Serializable {
+import view.View;
+
+public class Programa extends Model implements Serializable {
 	private String nombrePrograma;
 	private List<Materia> materias;
 	private String descripcion;
+	private View v;
 
-	public Programa(String nombrePrograma, List<Materia> materias,
+	public Programa() {
+
+	}
+
+	public void setParametros(String nombrePrograma, List<Materia> materias,
 			String descripcion) {
-		super();
 		this.nombrePrograma = nombrePrograma;
 		this.materias = materias;
 		this.descripcion = descripcion;
+
 	}
 
 	public String getNombrePrograma() {
@@ -38,5 +45,13 @@ public class Programa implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public void start(View v) {
+		this.v = v;
+	}
+
+	public void refreshView() {
+		v.refresh();
 	}
 }

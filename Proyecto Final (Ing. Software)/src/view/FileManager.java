@@ -1,4 +1,4 @@
-package persistence;
+package view;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +26,8 @@ public class FileManager {
 		this.pricipal = pricipal;
 	}
 
-	public FileManager() {
+	public FileManager(Programa programa) {
+		this.programa=programa;
 		openFileChooser();
 	}
 
@@ -96,7 +97,7 @@ public class FileManager {
 					}
 				}
 
-				Programa programa = new Programa(nombrePrograma, materias, "");
+				this.programa.setParametros(nombrePrograma, materias, "");
 
 				bufferReader.close();
 			} catch (Exception e) {
