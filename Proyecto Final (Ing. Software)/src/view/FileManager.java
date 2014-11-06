@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.*;
 
-import view.MainInterfaz;
 import model.Estado;
 import model.EstadoMateria;
 import model.Materia;
@@ -16,18 +15,16 @@ import model.Programa;
 
 public class FileManager {
 	private Programa programa;
-	private MainInterfaz pricipal;
 	private boolean approval;
 	private File file;
 	private JFileChooser chooser;
 
-	public FileManager(Programa programa, MainInterfaz pricipal) {
-		this.programa = programa;
-		this.pricipal = pricipal;
-	}
-
 	public FileManager(Programa programa) {
 		this.programa=programa;
+		openFileChooser();
+	}
+	
+	public FileManager(){
 		openFileChooser();
 	}
 
@@ -49,7 +46,8 @@ public class FileManager {
 		}
 	}
 
-	public void readTxtFile() throws Exception {
+	public Programa readTxtFile() throws Exception {
+		Programa programa=new Programa();
 		if (this.approval) {
 			this.file = chooser.getSelectedFile();
 			try {
@@ -97,8 +95,7 @@ public class FileManager {
 					}
 				}
 
-				this.programa.setParametros(nombrePrograma, materias, "");
-
+				programa.setParametros(nombrePrograma, materias, "");
 				bufferReader.close();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(
@@ -107,6 +104,7 @@ public class FileManager {
 								+ e.getMessage());
 			}
 		}
+		return programa;
 	}
 
 	public void saveSerialFile() throws Exception {
@@ -114,7 +112,7 @@ public class FileManager {
 			try {
 				writeSelectedSerialFile(chooser.getSelectedFile());
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(pricipal,
+				JOptionPane.showMessageDialog(null,
 						"No se pudo guardar el archivo.",
 						"Error al guardar el archivo",
 						JOptionPane.ERROR_MESSAGE);
@@ -129,7 +127,7 @@ public class FileManager {
 			oos.writeObject(programa);
 			oos.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(pricipal,
+			JOptionPane.showMessageDialog(null,
 					"No se pudo salvar el archivo.",
 					"Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
 		}
@@ -146,7 +144,7 @@ public class FileManager {
 				ois.close();
 			} catch (Exception e) {
 				JOptionPane
-						.showMessageDialog(pricipal,
+						.showMessageDialog(null,
 								"Error! Solo se permiten archivos serializados referentes al programa.");
 				System.exit(0);
 			}

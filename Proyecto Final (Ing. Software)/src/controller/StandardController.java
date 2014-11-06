@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.List;
+
+import model.Materia;
 import model.Model;
 
 public class StandardController extends Controller {
@@ -8,6 +11,10 @@ public class StandardController extends Controller {
 	public void start(Model m) {
 		this.m = m;
 	}
-	
-	public void cambiar
+
+	@Override
+	public void solicitarCambioParametros(String nombrePrograma,
+			List<Materia> materias, String descripcion) {
+		m.changeProgramParameters(nombrePrograma, materias, descripcion);		
+	}
 }

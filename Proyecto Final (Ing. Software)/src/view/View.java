@@ -1,5 +1,8 @@
 package view;
 
+import java.util.List;
+
+import model.Materia;
 import model.Model;
 import controller.Controller;
 
@@ -12,5 +15,7 @@ public abstract class View {
 	public abstract void start(Controller c, Model m);
 
 	public abstract void refresh();
+	
+	public abstract void setProgramTittle(String nombrePrograma);
 
 }
