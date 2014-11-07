@@ -54,10 +54,13 @@ public class Programa extends Model implements Serializable {
 	public void refreshView() {
 		v.refresh();
 	}
+	
+	
 
 	public void changeProgramParameters(String nombrePrograma,
 			List<Materia> materias, String descripcion) {
 		this.setParametros(nombrePrograma, materias, descripcion);
 		v.setProgramTittle(nombrePrograma);
+		v.refreshMaterias(materias);
 	}
 }

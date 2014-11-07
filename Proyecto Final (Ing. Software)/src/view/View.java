@@ -15,7 +15,9 @@ public abstract class View {
 	public abstract void start(Controller c, Model m);
 
 	public abstract void refresh();
-	
+
 	public abstract void setProgramTittle(String nombrePrograma);
+
+	public abstract void refreshMaterias(List<Materia> materias);
 
 }

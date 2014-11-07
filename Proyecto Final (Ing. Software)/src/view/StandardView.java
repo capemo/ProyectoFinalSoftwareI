@@ -1,22 +1,27 @@
 package view;
 
+import view.Handler;
+import view.LabelTransferHandler;
+import view.MateriaLabel;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Scanner;
 
-import javax.swing.AbstractListModel;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingConstants;
 
 import model.Materia;
@@ -33,7 +38,7 @@ public class StandardView extends View implements ActionListener{
 	private static final String CARGAR_PROGRAMA="CARGAR PROGRAMA";
 	private static final String CARGAR_CONFIG="CARGAR CONFIG";
 	private static final String GUARDAR_CONFIG="GUARDAR CONFIG";
-	private JPanel PanelListaMateriasVistas;
+	private DragPanel panelListaMateriasVistas;
     private JPanel container;
     private JButton btnCargarPrograma;
     private JButton btnCargarConfig;
@@ -65,28 +70,31 @@ public class StandardView extends View implements ActionListener{
     private JLabel lblMateriasVistas;
     private JLabel lblNombrePrograma;
     private JPanel panelBotones;
-    private JPanel panelL1;
-    private JPanel panelL10;
-    private JPanel panelL2;
-    private JPanel panelL3;
-    private JPanel panelL4;
-    private JPanel panelL5;
-    private JPanel panelL6;
-    private JPanel panelL7;
-    private JPanel panelL8;
-    private JPanel panelL9;
-    private JPanel panelMateriasPorVer;
-    private JPanel panelMateriasVistas;
+    private DragPanel panelL1;
+    private DragPanel panelL10;
+    private DragPanel panelL2;
+    private DragPanel panelL3;
+    private DragPanel panelL4;
+    private DragPanel panelL5;
+    private DragPanel panelL6;
+    private DragPanel panelL7;
+    private DragPanel panelL8;
+    private DragPanel panelL9;
+    private DragPanel panelMateriasPorVer;
+    private JPanel panelMateriasVistas; 
     private JPanel panelPrograma;
 
+    
+    
 	private void initComponents() {
 		mainInterfaz=new JFrame();
         container = new JPanel();
         panelMateriasVistas = new JPanel();
         lblMateriasVistas = new JLabel();
         jScrollPaneMateriasVistas = new JScrollPane();
-        PanelListaMateriasVistas = new JPanel();
+        panelListaMateriasVistas = new DragPanel();
         jScrollPanePrograma = new JScrollPane();
+
         panelPrograma = new JPanel();
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
@@ -99,46 +107,61 @@ public class StandardView extends View implements ActionListener{
         jLabel9 = new JLabel();
         jLabel10 = new JLabel();
         jScrollPaneL1 = new JScrollPane();
-        panelL1 = new JPanel();
+        panelL1 = new DragPanel();
         jScrollPaneL2 = new JScrollPane();
-        panelL2 = new JPanel();
+        panelL2 = new DragPanel();
         jScrollPaneL3 = new JScrollPane();
-        panelL3 = new JPanel();
+        panelL3 = new DragPanel();
         jScrollPaneL4 = new JScrollPane();
-        panelL4 = new JPanel();
+        panelL4 = new DragPanel();
         jScrollPaneL5 = new JScrollPane();
-        panelL5 = new JPanel();
+        panelL5 = new DragPanel();
         jScrollPaneL6 = new JScrollPane();
-        panelL6 = new JPanel();
+        panelL6 = new DragPanel();
         jScrollPaneL7 = new JScrollPane();
-        panelL7 = new JPanel();
+        panelL7 = new DragPanel();
         jScrollPaneL8 = new JScrollPane();
-        panelL8 = new JPanel();
+        panelL8 = new DragPanel();
         jScrollPaneL9 = new JScrollPane();
-        panelL9 = new JPanel();
+        panelL9 = new DragPanel();
         jScrollPaneL10 = new JScrollPane();
-        panelL10 = new JPanel();
+        panelL10 = new DragPanel();
         lblNombrePrograma = new JLabel();
         panelBotones = new JPanel();
         btnCargarPrograma = new JButton();
         btnCargarConfig = new JButton();
         btnGuardarConfig = new JButton();
         jScrollPaneMateriasPorVer = new JScrollPane();
-        panelMateriasPorVer = new JPanel();
+        panelMateriasPorVer = new DragPanel();
         jLabel11 = new JLabel();
         
-        jScrollPaneL1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL5.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL6.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL7.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL8.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL9.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneL10.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneMateriasPorVer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPaneMateriasVistas.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        MouseListener handler = new Handler();
+        LabelTransferHandler th = new LabelTransferHandler();
+        panelL1.addMouseListener(handler);
+        panelL10.addMouseListener(handler);
+        panelL2.addMouseListener(handler);
+        panelL3.addMouseListener(handler);
+        panelL4.addMouseListener(handler);
+        panelL5.addMouseListener(handler);
+        panelL6.addMouseListener(handler);
+        panelL7.addMouseListener(handler);
+        panelL8.addMouseListener(handler);
+        panelL9.addMouseListener(handler);
+        panelMateriasPorVer.addMouseListener(handler);
+        panelListaMateriasVistas.addMouseListener(handler); 
+
+        panelL1.setTransferHandler(th);
+        panelL10.setTransferHandler(th);
+        panelL2.setTransferHandler(th);
+        panelL3.setTransferHandler(th);
+        panelL4.setTransferHandler(th);
+        panelL5.setTransferHandler(th);
+        panelL6.setTransferHandler(th);
+        panelL7.setTransferHandler(th);
+        panelL8.setTransferHandler(th);
+        panelL9.setTransferHandler(th);
+        panelMateriasPorVer.setTransferHandler(th);
+        panelListaMateriasVistas.setTransferHandler(th); 
 
         mainInterfaz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainInterfaz.setTitle("Program Manager 1.0");
@@ -147,18 +170,9 @@ public class StandardView extends View implements ActionListener{
         lblMateriasVistas.setText("MATERIAS VISTAS");
         lblMateriasVistas.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        GroupLayout PanelListaMateriasVistasLayout = new GroupLayout(PanelListaMateriasVistas);
-        PanelListaMateriasVistas.setLayout(PanelListaMateriasVistasLayout);
-        PanelListaMateriasVistasLayout.setHorizontalGroup(
-            PanelListaMateriasVistasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
-        );
-        PanelListaMateriasVistasLayout.setVerticalGroup(
-            PanelListaMateriasVistasLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 835, Short.MAX_VALUE)
-        );
+        panelListaMateriasVistas.setPreferredSize(new Dimension(151,2000));     
 
-        jScrollPaneMateriasVistas.setViewportView(PanelListaMateriasVistas);
+        jScrollPaneMateriasVistas.setViewportView(panelListaMateriasVistas);
 
         GroupLayout panelMateriasVistasLayout = new GroupLayout(panelMateriasVistas);
         panelMateriasVistas.setLayout(panelMateriasVistasLayout);
@@ -172,7 +186,7 @@ public class StandardView extends View implements ActionListener{
             .addGroup(panelMateriasVistasLayout.createSequentialGroup()
                 .addComponent(lblMateriasVistas)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneMateriasVistas, GroupLayout.PREFERRED_SIZE, 431, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneMateriasVistas, GroupLayout.PREFERRED_SIZE, 430, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -190,135 +204,27 @@ public class StandardView extends View implements ActionListener{
         jLabel10.setHorizontalAlignment(SwingConstants.CENTER);
 
         configureProgramLabelsText();
+        panelL1.setPreferredSize(new Dimension(148,1000));
+        panelL2.setPreferredSize(new Dimension(148,1000));
+        panelL2.setPreferredSize(new Dimension(148,1000));
+        panelL3.setPreferredSize(new Dimension(148,1000));
+        panelL4.setPreferredSize(new Dimension(148,1000));
+        panelL5.setPreferredSize(new Dimension(148,1000));
+        panelL6.setPreferredSize(new Dimension(148,1000));
+        panelL7.setPreferredSize(new Dimension(148,1000));
+        panelL8.setPreferredSize(new Dimension(148,1000));
+        panelL9.setPreferredSize(new Dimension(148,1000));
+        panelL10.setPreferredSize(new Dimension(148,1000));
         
-        GroupLayout panelL1Layout = new GroupLayout(panelL1);
-        panelL1.setLayout(panelL1Layout);
-        panelL1Layout.setHorizontalGroup(
-            panelL1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL1Layout.setVerticalGroup(
-            panelL1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL1.setViewportView(panelL1);
-
-        GroupLayout panelL2Layout = new GroupLayout(panelL2);
-        panelL2.setLayout(panelL2Layout);
-        panelL2Layout.setHorizontalGroup(
-            panelL2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL2Layout.setVerticalGroup(
-            panelL2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL2.setViewportView(panelL2);
-
-        GroupLayout panelL3Layout = new GroupLayout(panelL3);
-        panelL3.setLayout(panelL3Layout);
-        panelL3Layout.setHorizontalGroup(
-            panelL3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL3Layout.setVerticalGroup(
-            panelL3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL3.setViewportView(panelL3);
-
-        GroupLayout panelL4Layout = new GroupLayout(panelL4);
-        panelL4.setLayout(panelL4Layout);
-        panelL4Layout.setHorizontalGroup(
-            panelL4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL4Layout.setVerticalGroup(
-            panelL4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL4.setViewportView(panelL4);
-
-        GroupLayout panelL5Layout = new GroupLayout(panelL5);
-        panelL5.setLayout(panelL5Layout);
-        panelL5Layout.setHorizontalGroup(
-            panelL5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL5Layout.setVerticalGroup(
-            panelL5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL5.setViewportView(panelL5);
-
-        GroupLayout panelL6Layout = new GroupLayout(panelL6);
-        panelL6.setLayout(panelL6Layout);
-        panelL6Layout.setHorizontalGroup(
-            panelL6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL6Layout.setVerticalGroup(
-            panelL6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL6.setViewportView(panelL6);
-
-        GroupLayout panelL7Layout = new GroupLayout(panelL7);
-        panelL7.setLayout(panelL7Layout);
-        panelL7Layout.setHorizontalGroup(
-            panelL7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL7Layout.setVerticalGroup(
-            panelL7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL7.setViewportView(panelL7);
-
-        GroupLayout panelL8Layout = new GroupLayout(panelL8);
-        panelL8.setLayout(panelL8Layout);
-        panelL8Layout.setHorizontalGroup(
-            panelL8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL8Layout.setVerticalGroup(
-            panelL8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL8.setViewportView(panelL8);
-
-        GroupLayout panelL9Layout = new GroupLayout(panelL9);
-        panelL9.setLayout(panelL9Layout);
-        panelL9Layout.setHorizontalGroup(
-            panelL9Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        panelL9Layout.setVerticalGroup(
-            panelL9Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL9.setViewportView(panelL9);
-
-        GroupLayout panelL10Layout = new GroupLayout(panelL10);
-        panelL10.setLayout(panelL10Layout);
-        panelL10Layout.setHorizontalGroup(
-            panelL10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
-        );
-        panelL10Layout.setVerticalGroup(
-            panelL10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-
         jScrollPaneL10.setViewportView(panelL10);
 
         GroupLayout panelProgramaLayout = new GroupLayout(panelPrograma);
@@ -385,7 +291,7 @@ public class StandardView extends View implements ActionListener{
                     .addComponent(jLabel10))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelProgramaLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneL1, GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneL1, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPaneL2, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPaneL3, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPaneL4, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -433,18 +339,7 @@ public class StandardView extends View implements ActionListener{
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGuardarConfig))
         );
-
-        GroupLayout panelMateriasPorVerLayout = new GroupLayout(panelMateriasPorVer);
-        panelMateriasPorVer.setLayout(panelMateriasPorVerLayout);
-        panelMateriasPorVerLayout.setHorizontalGroup(
-            panelMateriasPorVerLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 2000, Short.MAX_VALUE)
-        );
-        panelMateriasPorVerLayout.setVerticalGroup(
-            panelMateriasPorVerLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
+        
         jScrollPaneMateriasPorVer.setViewportView(panelMateriasPorVer);
 
         jLabel11.setHorizontalAlignment(SwingConstants.CENTER);
@@ -500,6 +395,31 @@ public class StandardView extends View implements ActionListener{
                 .addContainerGap()
                 .addComponent(container, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        
+        jScrollPaneL1.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL10.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL2.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL3.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL4.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL5.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL6.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL7.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL8.getHorizontalScrollBar().setValue(8);
+        jScrollPaneL9.getHorizontalScrollBar().setValue(8);
+        jScrollPaneMateriasVistas.getHorizontalScrollBar().setValue(7);
+        
+        jScrollPaneL1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL5.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL6.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL7.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL8.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL9.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneL10.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneMateriasPorVer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPaneMateriasVistas.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
 		mainInterfaz.pack();
 		mainInterfaz.setSize(new Dimension(1362, 660));
@@ -580,8 +500,35 @@ public class StandardView extends View implements ActionListener{
 	}
 
 	public void refresh() {
-		mainInterfaz.setVisible(false);
-		mainInterfaz.setVisible(true);
+
+	}
+
+	public void refreshMaterias(List<Materia> materias) {
+		panelL1.removeAll();
+		panelL2.removeAll();
+		panelL3.removeAll();
+		panelL4.removeAll();
+		panelL5.removeAll();
+		panelL6.removeAll();
+		panelL7.removeAll();
+		panelL8.removeAll();
+		panelL9.removeAll();
+		panelL10.removeAll();
+		panelL1.repaint();
+		panelL2.repaint();
+		panelL3.repaint();
+		panelL4.repaint();
+		panelL5.repaint();
+		panelL6.repaint();
+		panelL7.repaint();
+		panelL8.repaint();
+		panelL9.repaint();
+		panelL10.repaint();
+		panelMateriasPorVer.removeAll();
+		panelListaMateriasVistas.removeAll();
+		for (Materia materiaTemp:materias) {
+			panelMateriasPorVer.add(new MateriaLabel(materiaTemp));
+		}	
 	}
 
 }
