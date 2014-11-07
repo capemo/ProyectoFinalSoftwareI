@@ -502,7 +502,7 @@ public class StandardView extends View implements ActionListener{
         );
         
 		mainInterfaz.pack();
-		mainInterfaz.setSize(new Dimension(1366, 660));
+		mainInterfaz.setSize(new Dimension(1362, 660));
 		mainInterfaz.setLocationRelativeTo(null);
 		mainInterfaz.setResizable(false);
 		mainInterfaz.setVisible(true);
