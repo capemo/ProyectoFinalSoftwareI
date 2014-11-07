@@ -29,11 +29,6 @@ public class FileManager {
 	}
 
 	public void openFileChooser() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-
-		}
 		this.chooser = new JFileChooser();
 		File file = new File("Programas académicos/");
 		chooser.setCurrentDirectory(file);

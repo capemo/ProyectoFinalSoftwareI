@@ -72,7 +72,6 @@ public class ReportingListTransferHandler extends TransferHandler {
  
         DefaultListModel listModel = (DefaultListModel)target.getModel();
         int max = listModel.getSize();
-        System.out.printf("index = %d  max = %d%n", index, max);
         if (index < 0) {
             index = max;
         } else {
