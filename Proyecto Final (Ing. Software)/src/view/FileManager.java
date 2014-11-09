@@ -13,13 +13,11 @@ import model.Materia;
 import model.Periodo;
 import model.Programa;
 
-public class FileManager{
+public class FileManager extends JFrame{
 	private Programa programa;
-	private StandardView view;
 
-	public FileManager(Programa programa, StandardView view) {
+	public FileManager(Programa programa) {
 		this.programa=programa;
-		this.view=view;
 	}
 
 	public Programa readTxtFile() throws Exception {
@@ -28,10 +26,9 @@ public class FileManager{
 		fc.setDialogTitle("Load program");
 		fc.setApproveButtonToolTipText("Select the program to load.");
 		fc.setApproveButtonText("Select");
-		System.out.println(fc.getApproveButtonText());
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
-		int respuesta = fc.showSaveDialog(view.getMainInterfaz());
+		int respuesta = fc.showOpenDialog(this);
 
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
@@ -96,13 +93,13 @@ public class FileManager{
 		fc.setDialogTitle("Save Configuration");
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
-		int respuesta = fc.showSaveDialog(view.getMainInterfaz());
+		int respuesta = fc.showSaveDialog(this);
 
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
 				writeSelectedSerialFile(fc.getSelectedFile());
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(view.getMainInterfaz(),
+				JOptionPane.showMessageDialog(null,
 						e.getMessage(),
 						"Error al guardar el archivo",
 						JOptionPane.ERROR_MESSAGE);
@@ -118,19 +115,19 @@ public class FileManager{
 			oos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(view.getMainInterfaz(),
+			JOptionPane.showMessageDialog(null,
 					"No se pudo salvar el archivo.",
 					"Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	public Programa loadSerialFile() throws IOException {
-		JFileChooser fc = new JFileChooser(".");
+		JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Load Configuration");
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
 
-		int respuesta = fc.showSaveDialog(view.getMainInterfaz());
+		int respuesta = fc.showOpenDialog(this);
 
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
@@ -140,7 +137,7 @@ public class FileManager{
 				ois.close();
 			} catch (Exception e) {
 				JOptionPane
-						.showMessageDialog(view.getMainInterfaz(),
+						.showMessageDialog(null,
 								"Error! Solo se permiten archivos serializados referentes al programa.");
 				System.exit(0);
 			}

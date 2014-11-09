@@ -89,7 +89,7 @@ public class StandardView extends View implements ActionListener, Serializable{
 
 	private void initComponents() {
 		mainInterfaz=new JFrame();
-		fileManager=new FileManager(programa, this);
+		fileManager=new FileManager(programa);
         container = new JPanel();
         panelMateriasVistas = new JPanel();
         lblMateriasVistas = new JLabel();
@@ -538,7 +538,7 @@ public class StandardView extends View implements ActionListener, Serializable{
 	}
 
 	public void saveProgram(Model model) {
-		fileManager= new FileManager((Programa) model, this);
+		fileManager= new FileManager(programa);
 		try {
 			fileManager.saveSerialFile();
 		} catch (Exception e) {
