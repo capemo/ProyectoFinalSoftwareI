@@ -12,6 +12,10 @@ public abstract class Controller {
 
 	public abstract void start(Model m);
 	
-	public abstract void solicitarCambioParametros(String nombrePrograma,
+	public abstract void requestParameterChanges(String nombrePrograma,
 			List<Materia> materias, String descripcion);
+	
+	public abstract void saveProgram();
+	
+	public abstract void loadProgram();
 }

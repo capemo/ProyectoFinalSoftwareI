@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
+import javax.swing.RepaintManager;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingConstants;
 
@@ -30,10 +32,11 @@ import model.Programa;
 import controller.Controller;
 import controller.StandardController;
 
-public class StandardView extends View implements ActionListener{
+public class StandardView extends View implements ActionListener, Serializable{
 	private StandardController controller;
 	private Programa programa;
 	private JFrame mainInterfaz;
+	private FileManager fileManager;
 
 	private static final String CARGAR_PROGRAMA="CARGAR PROGRAMA";
 	private static final String CARGAR_CONFIG="CARGAR CONFIG";
@@ -54,19 +57,6 @@ public class StandardView extends View implements ActionListener{
     private JLabel jLabel7;
     private JLabel jLabel8;
     private JLabel jLabel9;
-    private JScrollPane jScrollPaneL1;
-    private JScrollPane jScrollPaneL10;
-    private JScrollPane jScrollPaneL2;
-    private JScrollPane jScrollPaneL3;
-    private JScrollPane jScrollPaneL4;
-    private JScrollPane jScrollPaneL5;
-    private JScrollPane jScrollPaneL6;
-    private JScrollPane jScrollPaneL7;
-    private JScrollPane jScrollPaneL8;
-    private JScrollPane jScrollPaneL9;
-    private JScrollPane jScrollPaneMateriasPorVer;
-    private JScrollPane jScrollPaneMateriasVistas;
-    private JScrollPane jScrollPanePrograma;
     private JLabel lblMateriasVistas;
     private JLabel lblNombrePrograma;
     private JPanel panelBotones;
@@ -83,18 +73,29 @@ public class StandardView extends View implements ActionListener{
     private DragPanel panelMateriasPorVer;
     private JPanel panelMateriasVistas; 
     private JPanel panelPrograma;
+    private JScrollPane jScrollPaneL1;
+    private JScrollPane jScrollPaneL10;
+    private JScrollPane jScrollPaneL2;
+    private JScrollPane jScrollPaneL3;
+    private JScrollPane jScrollPaneL4;
+    private JScrollPane jScrollPaneL5;
+    private JScrollPane jScrollPaneL6;
+    private JScrollPane jScrollPaneL7;
+    private JScrollPane jScrollPaneL8;
+    private JScrollPane jScrollPaneL9;
+    private JScrollPane jScrollPaneMateriasPorVer;
+    private JScrollPane jScrollPaneMateriasVistas;
+    private JScrollPane jScrollPanePrograma;
 
-    
-    
 	private void initComponents() {
 		mainInterfaz=new JFrame();
+		fileManager=new FileManager(programa, this);
         container = new JPanel();
         panelMateriasVistas = new JPanel();
         lblMateriasVistas = new JLabel();
         jScrollPaneMateriasVistas = new JScrollPane();
         panelListaMateriasVistas = new DragPanel();
         jScrollPanePrograma = new JScrollPane();
-
         panelPrograma = new JPanel();
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
@@ -478,14 +479,15 @@ public class StandardView extends View implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals(CARGAR_PROGRAMA)) {
-			FileManager fileManager= new FileManager();
 			try {
 				Programa programa=fileManager.readTxtFile();
-				controller.solicitarCambioParametros(programa.getNombrePrograma(), programa.getMaterias(), programa.getDescripcion());
+				controller.requestParameterChanges(programa.getNombrePrograma(), programa.getMaterias(), programa.getDescripcion());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				System.out.println("Error en la lectura del archivo");
+				
 			}
+		}
+		if (e.getActionCommand().equals(GUARDAR_CONFIG)) {
+			controller.saveProgram();
 		}
 	}
 	
@@ -500,7 +502,7 @@ public class StandardView extends View implements ActionListener{
 	}
 
 	public void refresh() {
-
+		
 	}
 
 	public void refreshMaterias(List<Materia> materias) {
@@ -524,11 +526,34 @@ public class StandardView extends View implements ActionListener{
 		panelL8.repaint();
 		panelL9.repaint();
 		panelL10.repaint();
+		panelMateriasPorVer.repaint();
 		panelMateriasPorVer.removeAll();
 		panelListaMateriasVistas.removeAll();
+		panelListaMateriasVistas.repaint();
+		panelMateriasPorVer.setVisible(false);
+		panelMateriasPorVer.setVisible(true);
 		for (Materia materiaTemp:materias) {
 			panelMateriasPorVer.add(new MateriaLabel(materiaTemp));
 		}	
 	}
+
+	public void saveProgram(Model model) {
+		fileManager= new FileManager((Programa) model, this);
+		try {
+			fileManager.saveSerialFile();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void loadProgram() {
+	
+	}
+
+	public JFrame getMainInterfaz() {
+		return mainInterfaz;
+	}
+	
+	
 
 }

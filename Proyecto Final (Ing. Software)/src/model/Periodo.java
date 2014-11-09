@@ -1,6 +1,8 @@
 package model;
 
-public enum Periodo {
+import java.io.Serializable;
+
+public enum Periodo implements Serializable{
 	I {
 		public String toString() {
 			return "I";

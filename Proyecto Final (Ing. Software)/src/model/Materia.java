@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Materia {
+public class Materia implements Serializable{
+	private static final long serialVersionUID = -5366763128449698199L;
 	private String idMateria;
 	private String nombreMateria;
 	private List<Materia> preRequicitos;

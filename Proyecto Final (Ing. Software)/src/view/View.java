@@ -19,5 +19,9 @@ public abstract class View {
 	public abstract void setProgramTittle(String nombrePrograma);
 
 	public abstract void refreshMaterias(List<Materia> materias);
+	
+	public abstract void saveProgram(Model model);
+	
+	public abstract void loadProgram();
 
 }

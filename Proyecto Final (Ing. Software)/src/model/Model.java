@@ -1,10 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import view.View;
 
-public abstract class Model {
+public abstract class Model implements Serializable{
+	private static final long serialVersionUID = 4661669179019051113L;
+
 // revisar*****
 	public static Model getPrograma() {
 		return new Programa();
@@ -17,4 +20,8 @@ public abstract class Model {
 	
 	public abstract void changeProgramParameters(String nombrePrograma,
 			List<Materia> materias, String descripcion);
+	
+	public abstract void saveProgram();
+	
+	public abstract void loadProgram();
 }

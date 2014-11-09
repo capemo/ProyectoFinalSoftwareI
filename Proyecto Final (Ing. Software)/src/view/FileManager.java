@@ -13,40 +13,29 @@ import model.Materia;
 import model.Periodo;
 import model.Programa;
 
-public class FileManager {
+public class FileManager{
 	private Programa programa;
-	private boolean approval;
-	private File file;
-	private JFileChooser chooser;
+	private StandardView view;
 
-	public FileManager(Programa programa) {
+	public FileManager(Programa programa, StandardView view) {
 		this.programa=programa;
-		openFileChooser();
-	}
-	
-	public FileManager(){
-		openFileChooser();
-	}
-
-	public void openFileChooser() {
-		this.chooser = new JFileChooser();
-		File file = new File("Programas académicos/");
-		chooser.setCurrentDirectory(file);
-
-		int filename = chooser.showOpenDialog(null);
-		this.approval = false;
-		if (filename == JFileChooser.APPROVE_OPTION) {
-			this.file = chooser.getSelectedFile();
-			this.approval = true;
-		}
+		this.view=view;
 	}
 
 	public Programa readTxtFile() throws Exception {
 		Programa programa=new Programa();
-		if (this.approval) {
-			this.file = chooser.getSelectedFile();
+		JFileChooser fc = new JFileChooser("Select");
+		fc.setDialogTitle("Load program");
+		fc.setApproveButtonToolTipText("Select the program to load.");
+		fc.setApproveButtonText("Select");
+		System.out.println(fc.getApproveButtonText());
+		File file = new File("Programas académicos/");
+		fc.setCurrentDirectory(file);
+		int respuesta = fc.showSaveDialog(view.getMainInterfaz());
+
+		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
-				FileReader inputFile = new FileReader(this.file);
+				FileReader inputFile = new FileReader(fc.getSelectedFile());
 
 				BufferedReader bufferReader = new BufferedReader(inputFile);
 				List<Materia> materias = new ArrayList<Materia>();
@@ -57,7 +46,7 @@ public class FileManager {
 				String[] preRequicitos;
 
 				while (!(line = bufferReader.readLine())
-						.contains("-- PRE-REQUICITOS --")) {
+						.contains("-- PRE-REQUISITOS --")) {
 					if (cont == 1) {
 						nombrePrograma = line;
 						cont = 0;
@@ -103,12 +92,18 @@ public class FileManager {
 	}
 
 	public void saveSerialFile() throws Exception {
-		if (this.approval) {
+		JFileChooser fc = new JFileChooser(".");
+		fc.setDialogTitle("Save Configuration");
+		File file = new File("Programas académicos/");
+		fc.setCurrentDirectory(file);
+		int respuesta = fc.showSaveDialog(view.getMainInterfaz());
+
+		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
-				writeSelectedSerialFile(chooser.getSelectedFile());
+				writeSelectedSerialFile(fc.getSelectedFile());
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null,
-						"No se pudo guardar el archivo.",
+				JOptionPane.showMessageDialog(view.getMainInterfaz(),
+						e.getMessage(),
 						"Error al guardar el archivo",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -122,24 +117,30 @@ public class FileManager {
 			oos.writeObject(programa);
 			oos.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null,
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(view.getMainInterfaz(),
 					"No se pudo salvar el archivo.",
 					"Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	public Programa loadSerialFile() throws IOException {
-		chooser.setDialogTitle("Cargar Configuracion");
-		if (this.approval) {
-			this.file = (chooser.getSelectedFile());
+		JFileChooser fc = new JFileChooser(".");
+		fc.setDialogTitle("Load Configuration");
+		File file = new File("Programas académicos/");
+		fc.setCurrentDirectory(file);
+
+		int respuesta = fc.showSaveDialog(view.getMainInterfaz());
+
+		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
 				ObjectInputStream ois = new ObjectInputStream(
-						new FileInputStream(this.file));
+						new FileInputStream(fc.getSelectedFile()));
 				programa = (Programa) ois.readObject();
 				ois.close();
 			} catch (Exception e) {
 				JOptionPane
-						.showMessageDialog(null,
+						.showMessageDialog(view.getMainInterfaz(),
 								"Error! Solo se permiten archivos serializados referentes al programa.");
 				System.exit(0);
 			}

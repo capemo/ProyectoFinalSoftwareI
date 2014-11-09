@@ -6,6 +6,7 @@ import java.util.List;
 import view.View;
 
 public class Programa extends Model implements Serializable {
+	private static final long serialVersionUID = 6650235114455141136L;
 	private String nombrePrograma;
 	private List<Materia> materias;
 	private String descripcion;
@@ -54,13 +55,19 @@ public class Programa extends Model implements Serializable {
 	public void refreshView() {
 		v.refresh();
 	}
-	
-	
 
 	public void changeProgramParameters(String nombrePrograma,
 			List<Materia> materias, String descripcion) {
 		this.setParametros(nombrePrograma, materias, descripcion);
 		v.setProgramTittle(nombrePrograma);
 		v.refreshMaterias(materias);
+	}
+
+	public void saveProgram() {
+		v.saveProgram(this);
+	}
+
+	public void loadProgram() {
+
 	}
 }

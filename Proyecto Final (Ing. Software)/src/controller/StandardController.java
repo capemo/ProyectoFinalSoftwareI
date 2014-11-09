@@ -6,15 +6,26 @@ import model.Materia;
 import model.Model;
 
 public class StandardController extends Controller {
-	private Model m;
+	private Model model;
 
-	public void start(Model m) {
-		this.m = m;
+	public void start(Model model) {
+		this.model = model;
 	}
 
 	@Override
-	public void solicitarCambioParametros(String nombrePrograma,
+	public void requestParameterChanges(String nombrePrograma,
 			List<Materia> materias, String descripcion) {
-		m.changeProgramParameters(nombrePrograma, materias, descripcion);		
+		model.changeProgramParameters(nombrePrograma, materias, descripcion);		
+	}
+
+	@Override
+	public void saveProgram() {
+		model.saveProgram();
+	}
+
+	@Override
+	public void loadProgram() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,6 +1,9 @@
 package model;
 
-public class EstadoMateria {
+import java.io.Serializable;
+
+public class EstadoMateria implements Serializable {
+	private static final long serialVersionUID = -7913647462840417298L;
 	private Estado estado;
 	private int año;
 	private Periodo periodo;
