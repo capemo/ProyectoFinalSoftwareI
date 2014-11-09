@@ -13,7 +13,7 @@ import model.Materia;
 import model.Periodo;
 import model.Programa;
 
-public class FileManager extends JFrame{
+public class FileManager {
 	private Programa programa;
 
 	public FileManager(Programa programa) {
@@ -28,7 +28,7 @@ public class FileManager extends JFrame{
 		fc.setApproveButtonText("Select");
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
-		int respuesta = fc.showOpenDialog(this);
+		int respuesta = fc.showOpenDialog(null);
 
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
@@ -76,7 +76,7 @@ public class FileManager extends JFrame{
 					}
 				}
 
-				programa.setParametros(nombrePrograma, materias, "");
+				programa.setParameters(nombrePrograma, materias, "");
 				bufferReader.close();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(
@@ -93,7 +93,7 @@ public class FileManager extends JFrame{
 		fc.setDialogTitle("Save Configuration");
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
-		int respuesta = fc.showSaveDialog(this);
+		int respuesta = fc.showSaveDialog(null);
 
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
@@ -127,7 +127,7 @@ public class FileManager extends JFrame{
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
 
-		int respuesta = fc.showOpenDialog(this);
+		int respuesta = fc.showOpenDialog(null);
 
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {

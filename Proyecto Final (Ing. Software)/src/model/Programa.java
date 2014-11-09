@@ -10,13 +10,13 @@ public class Programa extends Model implements Serializable {
 	private String nombrePrograma;
 	private List<Materia> materias;
 	private String descripcion;
-	private View v;
+	private transient View v;
 
 	public Programa() {
 
 	}
 
-	public void setParametros(String nombrePrograma, List<Materia> materias,
+	public void setParameters(String nombrePrograma, List<Materia> materias,
 			String descripcion) {
 		this.nombrePrograma = nombrePrograma;
 		this.materias = materias;
@@ -58,7 +58,7 @@ public class Programa extends Model implements Serializable {
 
 	public void changeProgramParameters(String nombrePrograma,
 			List<Materia> materias, String descripcion) {
-		this.setParametros(nombrePrograma, materias, descripcion);
+		this.setParameters(nombrePrograma, materias, descripcion);
 		v.setProgramTittle(nombrePrograma);
 		v.refreshMaterias(materias);
 	}
@@ -68,6 +68,6 @@ public class Programa extends Model implements Serializable {
 	}
 
 	public void loadProgram() {
-
+		v.loadProgram();
 	}
 }

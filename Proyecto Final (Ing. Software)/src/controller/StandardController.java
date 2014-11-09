@@ -13,7 +13,7 @@ public class StandardController extends Controller {
 	}
 
 	@Override
-	public void requestParameterChanges(String nombrePrograma,
+	public void changeProgramParameters(String nombrePrograma,
 			List<Materia> materias, String descripcion) {
 		model.changeProgramParameters(nombrePrograma, materias, descripcion);		
 	}
@@ -25,7 +25,7 @@ public class StandardController extends Controller {
 
 	@Override
 	public void loadProgram() {
-		// TODO Auto-generated method stub
+		model.loadProgram();
 		
 	}
 }

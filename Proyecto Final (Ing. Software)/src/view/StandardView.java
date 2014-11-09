@@ -429,6 +429,24 @@ public class StandardView extends View implements ActionListener, Serializable{
 		mainInterfaz.setVisible(true);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals(CARGAR_PROGRAMA)) {
+			try {
+				Programa programa=fileManager.readTxtFile();
+				controller.changeProgramParameters(programa.getNombrePrograma(), programa.getMaterias(), programa.getDescripcion());
+			} catch (Exception e1) {
+				
+			}
+		}
+		if (e.getActionCommand().equals(GUARDAR_CONFIG)) {
+			controller.saveProgram();
+		}
+		if (e.getActionCommand().equals(CARGAR_CONFIG)) {
+			controller.loadProgram();
+			
+		}
+	}
+
 	public void configureProgramLabelsText() {
 		ArrayList<Integer> periodoI = new ArrayList<Integer>();
 		periodoI.add(Calendar.JANUARY);
@@ -475,21 +493,6 @@ public class StandardView extends View implements ActionListener, Serializable{
 			}
 		}
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(CARGAR_PROGRAMA)) {
-			try {
-				Programa programa=fileManager.readTxtFile();
-				controller.requestParameterChanges(programa.getNombrePrograma(), programa.getMaterias(), programa.getDescripcion());
-			} catch (Exception e1) {
-				
-			}
-		}
-		if (e.getActionCommand().equals(GUARDAR_CONFIG)) {
-			controller.saveProgram();
-		}
-	}
 	
 	public void setProgramTittle(String nombrePrograma){
 		lblNombrePrograma.setText(nombrePrograma);
@@ -502,10 +505,18 @@ public class StandardView extends View implements ActionListener, Serializable{
 	}
 
 	public void refresh() {
+		repaintPanels();
 		
 	}
 
 	public void refreshMaterias(List<Materia> materias) {
+		repaintPanels();
+		for (Materia materiaTemp:materias) {
+			panelMateriasPorVer.add(new MateriaLabel(materiaTemp));
+		}	
+	}
+	
+	public void repaintPanels(){
 		panelL1.removeAll();
 		panelL2.removeAll();
 		panelL3.removeAll();
@@ -532,9 +543,6 @@ public class StandardView extends View implements ActionListener, Serializable{
 		panelListaMateriasVistas.repaint();
 		panelMateriasPorVer.setVisible(false);
 		panelMateriasPorVer.setVisible(true);
-		for (Materia materiaTemp:materias) {
-			panelMateriasPorVer.add(new MateriaLabel(materiaTemp));
-		}	
 	}
 
 	public void saveProgram(Model model) {
@@ -547,7 +555,15 @@ public class StandardView extends View implements ActionListener, Serializable{
 	}
 
 	public void loadProgram() {
-	
+		fileManager= new FileManager(programa);
+		try {
+			Programa programa=fileManager.loadSerialFile();
+			this.programa.setDescripcion(programa.getDescripcion());
+			this.programa.setNombrePrograma(programa.getNombrePrograma());
+			this.programa.setMaterias(programa.getMaterias());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public JFrame getMainInterfaz() {
