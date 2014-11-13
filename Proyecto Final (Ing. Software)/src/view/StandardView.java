@@ -13,17 +13,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
-import javax.swing.RepaintManager;
-import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingConstants;
 
 import model.Materia;
@@ -33,6 +29,10 @@ import controller.Controller;
 import controller.StandardController;
 
 public class StandardView extends View implements ActionListener, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9155756686110350212L;
 	private StandardController controller;
 	private Programa programa;
 	private JFrame mainInterfaz;
@@ -71,7 +71,7 @@ public class StandardView extends View implements ActionListener, Serializable{
     private DragPanel panelL8;
     private DragPanel panelL9;
     private DragPanel panelMateriasPorVer;
-    private JPanel panelMateriasVistas; 
+    private DragPanel panelMateriasVistas; 
     private JPanel panelPrograma;
     private JScrollPane jScrollPaneL1;
     private JScrollPane jScrollPaneL10;
@@ -91,10 +91,11 @@ public class StandardView extends View implements ActionListener, Serializable{
 		mainInterfaz=new JFrame();
 		fileManager=new FileManager(programa);
         container = new JPanel();
-        panelMateriasVistas = new JPanel();
+        panelMateriasVistas = new DragPanel();
         lblMateriasVistas = new JLabel();
         jScrollPaneMateriasVistas = new JScrollPane();
         panelListaMateriasVistas = new DragPanel();
+        panelListaMateriasVistas.setName("vista");
         jScrollPanePrograma = new JScrollPane();
         panelPrograma = new JPanel();
         jLabel1 = new JLabel();
@@ -109,24 +110,34 @@ public class StandardView extends View implements ActionListener, Serializable{
         jLabel10 = new JLabel();
         jScrollPaneL1 = new JScrollPane();
         panelL1 = new DragPanel();
+        panelL1.setName("p1");
         jScrollPaneL2 = new JScrollPane();
         panelL2 = new DragPanel();
+        panelL2.setName("p2");
         jScrollPaneL3 = new JScrollPane();
         panelL3 = new DragPanel();
+        panelL3.setName("p3");
         jScrollPaneL4 = new JScrollPane();
         panelL4 = new DragPanel();
+        panelL4.setName("p4");
         jScrollPaneL5 = new JScrollPane();
         panelL5 = new DragPanel();
+        panelL5.setName("p5");
         jScrollPaneL6 = new JScrollPane();
         panelL6 = new DragPanel();
+        panelL6.setName("p6");
         jScrollPaneL7 = new JScrollPane();
         panelL7 = new DragPanel();
+        panelL7.setName("p7");
         jScrollPaneL8 = new JScrollPane();
         panelL8 = new DragPanel();
+        panelL8.setName("p8");
         jScrollPaneL9 = new JScrollPane();
         panelL9 = new DragPanel();
+        panelL9.setName("p9");
         jScrollPaneL10 = new JScrollPane();
         panelL10 = new DragPanel();
+        panelL10.setName("p10");
         lblNombrePrograma = new JLabel();
         panelBotones = new JPanel();
         btnCargarPrograma = new JButton();
@@ -134,6 +145,7 @@ public class StandardView extends View implements ActionListener, Serializable{
         btnGuardarConfig = new JButton();
         jScrollPaneMateriasPorVer = new JScrollPane();
         panelMateriasPorVer = new DragPanel();
+        panelMateriasPorVer.setName("no");
         jLabel11 = new JLabel();
         
         MouseListener handler = new Handler();
@@ -467,8 +479,14 @@ public class StandardView extends View implements ActionListener, Serializable{
 			jLabel1.setText(Integer.toString(Calendar.getInstance().get(
 					Calendar.YEAR))
 					+ " - " + "II");
+			panelL1.setName(Integer.toString(Calendar.getInstance().get(
+					Calendar.YEAR))
+					+ " - " + "II");
 		} else if (periodoII.contains(Calendar.getInstance().get(Calendar.MONTH))) {
 			jLabel1.setText(Integer.toString(Calendar.getInstance().get(
+					Calendar.YEAR) + 1)
+					+ " - " + "I");
+			panelL1.setName(Integer.toString(Calendar.getInstance().get(
 					Calendar.YEAR) + 1)
 					+ " - " + "I");
 		}
@@ -484,12 +502,25 @@ public class StandardView extends View implements ActionListener, Serializable{
 		labels.add(jLabel9);
 		labels.add(jLabel10);
 		String anoPeriodo[];
+		ArrayList<DragPanel> panels = new ArrayList<DragPanel>();
+		panels.add(panelL1);
+		panels.add(panelL2);
+		panels.add(panelL3);
+		panels.add(panelL4);
+		panels.add(panelL5);
+		panels.add(panelL6);
+		panels.add(panelL7);
+		panels.add(panelL8);
+		panels.add(panelL9);
+		panels.add(panelL10);
 		for (int i = 1; i < labels.size(); i++) {
 			anoPeriodo = labels.get(i - 1).getText().split(" - ");
 			if (anoPeriodo[1].equals("I")) {
 				labels.get(i).setText(anoPeriodo[0] + " - " + "II");
+				panels.get(i).setName(anoPeriodo[0] + " - " + "II");
 			} else if (anoPeriodo[1].equals("II")) {
 				labels.get(i).setText((Integer.parseInt(anoPeriodo[0])+1) + " - " + "I");
+				panels.get(i).setName((Integer.parseInt(anoPeriodo[0])+1) + " - " + "I");
 			}
 		}
 	}

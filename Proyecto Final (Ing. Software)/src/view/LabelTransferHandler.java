@@ -16,10 +16,15 @@ import java.util.ArrayList;
 import javax.activation.ActivationDataFlavor;
 import javax.activation.DataHandler;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
+
+import model.Materia;
+import model.Estado;
+import model.Periodo;
 
 class LabelTransferHandler extends TransferHandler {
 	private final DataFlavor localObjectFlavor;
@@ -127,10 +132,24 @@ class LabelTransferHandler extends TransferHandler {
 			DragPanel src = (DragPanel) support.getTransferable()
 					.getTransferData(localObjectFlavor);
 			MateriaLabel l = new MateriaLabel();
-			l.setIcon(src.draggingLabel.getIcon());
-			l.setText(src.draggingLabel.getText());
-			l.setPreferredSize(new Dimension(130,60));
-			l.setHorizontalAlignment(SwingConstants.CENTER);
+			l=src.draggingLabel;
+			if(!target.getName().equals("vista")){
+				if(!target.getName().equals("no")){
+				if(invalido(l.getMateria(),target.getName())) return false;
+				else{
+					l.getMateria().getEstado().setAño(Integer.valueOf(target.getName().substring(0,target.getName().indexOf("-")).trim()));
+					if(target.getName().substring(target.getName().indexOf("-")+1).trim().equals("I"))
+					l.getMateria().getEstado().setPeriodo(Periodo.I);
+					else
+						l.getMateria().getEstado().setPeriodo(Periodo.II);
+					l.getMateria().getEstado().setEstado(Estado.ASIGNADA);
+				}
+				}else{
+					return false;
+				}
+			}else{
+				l.getMateria().getEstado().setEstado(Estado.VISTA);
+			}
 			target.add(l);
 			target.revalidate();
 			return true;
@@ -153,5 +172,29 @@ class LabelTransferHandler extends TransferHandler {
 		}
 		src.draggingLabel = null;
 		window.setVisible(false);
+	}
+	
+	private boolean invalido(Materia ma, String o){
+		int ano=Integer.valueOf(o.substring(0,o.indexOf("-")).trim());
+		String per=o.substring(o.indexOf("-")+1).trim();
+		for(Materia mat:ma.getPreRequicitos()){
+			if(mat.getEstado().getEstado().equals(Estado.NO_VISTA)){
+				JOptionPane.showMessageDialog(null, "No se a visto la materia "+mat.getNombreMateria());
+				return true;
+				}
+			if(mat.getEstado().getEstado().equals(Estado.ASIGNADA)){
+				if(mat.getEstado().getAño()>ano){
+					JOptionPane.showMessageDialog(null, "La materia "+mat.getNombreMateria()+" debe verse antes");
+					return true;
+				}else{
+					if(mat.getEstado().getAño()==ano){
+						if(!(mat.getEstado().getPeriodo().equals(Periodo.I)&&per.equals("II"))){
+							JOptionPane.showMessageDialog(null, "La materia "+mat.getNombreMateria()+" debe verse antes");
+							return true;}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
