@@ -154,6 +154,7 @@ class LabelTransferHandler extends TransferHandler {
 			}
 			target.add(l);
 			target.revalidate();
+			target.repaint();
 			return true;
 		} catch (UnsupportedFlavorException ufe) {
 			ufe.printStackTrace();
