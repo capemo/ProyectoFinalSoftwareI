@@ -11,5 +11,6 @@ public class MainController {
 		c.start(m);
 		m.start(v);
 		v.start(c, m);
+		System.out.println("Done");
 	}
 }
