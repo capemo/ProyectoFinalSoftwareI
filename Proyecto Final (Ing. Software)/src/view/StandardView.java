@@ -715,8 +715,8 @@ public class StandardView extends View implements ActionListener, Serializable {
 	}
 
 	public void configureProgramLabelsText(int year, String term) {
-		jLabel1.setText(year + " - " + "I");
-		panelL1.setName(year + " - " + "I");
+		jLabel1.setText(year + " - " + term);
+		panelL1.setName(year + " - " + term);
 		String anoPeriodo[];
 		for (int i = 1; i < labelsPanelPrograma.size(); i++) {
 			anoPeriodo = labelsPanelPrograma.get(i - 1).getText().split(" - ");
