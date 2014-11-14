@@ -27,7 +27,9 @@ import model.Estado;
 import model.Periodo;
 
 class LabelTransferHandler extends TransferHandler {
+	private static final long serialVersionUID = 4446572656829372348L;
 	private final DataFlavor localObjectFlavor;
+	@SuppressWarnings("serial")
 	private final MateriaLabel label = new MateriaLabel() {
 		@Override
 		public boolean contains(int x, int y) {
@@ -48,7 +50,7 @@ class LabelTransferHandler extends TransferHandler {
 					@Override
 					public void dragMouseMoved(DragSourceDragEvent dsde) {
 						Point pt = dsde.getLocation();
-						pt.translate(5, 5); // offset
+						pt.translate(5, 5);
 						window.setLocation(pt);
 					}
 				});

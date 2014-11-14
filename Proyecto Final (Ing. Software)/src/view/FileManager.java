@@ -2,7 +2,6 @@ package view;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.*;
@@ -50,10 +49,9 @@ public class FileManager {
 					} else {
 						materia = line.split(" ~ ");
 						materias.add(new Materia(materia[0], materia[1],
-								new ArrayList<Materia>(), Integer
+								new ArrayList<Materia>(),new ArrayList<Materia>(), Integer
 										.parseInt(materia[2]),
-								new EstadoMateria(Estado.NO_VISTA, (Calendar
-										.getInstance().get(Calendar.YEAR)),
+								new EstadoMateria(Estado.NO_VISTA, 0,
 										Periodo.NA)));
 					}
 				}
@@ -69,6 +67,7 @@ public class FileManager {
 											.equals(preRequicitos[j])) {
 										materias.get(i).getPreRequicitos()
 												.add(materias.get(k));
+										materias.get(k).getDependencias().add(materias.get(i));
 									}
 								}
 							}
@@ -78,7 +77,9 @@ public class FileManager {
 
 				programa.setParameters(nombrePrograma, materias, "");
 				bufferReader.close();
+				System.out.println("done");
 			} catch (Exception e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(
 						null,
 						"Error while reading file line by line:"
@@ -94,7 +95,7 @@ public class FileManager {
 		File file = new File("Programas académicos/");
 		fc.setCurrentDirectory(file);
 		int respuesta = fc.showSaveDialog(null);
-
+		
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			try {
 				writeSelectedSerialFile(fc.getSelectedFile());

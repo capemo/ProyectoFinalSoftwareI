@@ -16,10 +16,10 @@ public class DragTest3 {
 	public JComponent makeUI() {
 		DragPanel p1 = new DragPanel();
 		p1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		p1.add((new MateriaLabel(new Materia("1", "Materia 1", null, 3, null))));
-		p1.add(new MateriaLabel(new Materia("2", "Materia 2", null, 2, null)));
-		p1.add(new MateriaLabel(new Materia("3", "Materia 3", null, 3, null)));
-		p1.add(new MateriaLabel(new Materia("4", "Materia 4", null, 3, null)));
+		p1.add((new MateriaLabel(new Materia("1", "Materia 1", null, null, 3, null))));
+		p1.add(new MateriaLabel(new Materia("2", "Materia 2", null, null, 2, null)));
+		p1.add(new MateriaLabel(new Materia("3", "Materia 3", null, null, 3, null)));
+		p1.add(new MateriaLabel(new Materia("4", "Materia 4", null, null, 3, null)));
 
 		MouseListener handler = new Handler();
 		p1.addMouseListener(handler);

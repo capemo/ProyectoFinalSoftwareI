@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public enum Periodo implements Serializable{
+public enum Periodo implements Serializable {
 	I {
 		public String toString() {
 			return "I";
@@ -13,5 +13,9 @@ public enum Periodo implements Serializable{
 			return "II";
 		}
 	},
-	NA
+	NA {
+		public String toString() {
+			return "NA";
+		}
+	}
 }

@@ -8,15 +8,18 @@ public class Materia implements Serializable{
 	private String idMateria;
 	private String nombreMateria;
 	private List<Materia> preRequicitos;
+	private List<Materia> dependencias;
 	private int creditos;
 	private EstadoMateria estado;
 
 	public Materia(String idMateria, String nombreMateria,
-			List<Materia> preRequicitos, int creditos, EstadoMateria estado) {
+			List<Materia> preRequicitos, List<Materia> dependencias,
+			int creditos, EstadoMateria estado) {
 		super();
 		this.idMateria = idMateria;
 		this.nombreMateria = nombreMateria;
 		this.preRequicitos = preRequicitos;
+		this.dependencias = dependencias;
 		this.creditos = creditos;
 		this.estado = estado;
 	}
@@ -60,4 +63,13 @@ public class Materia implements Serializable{
 	public void setEstado(EstadoMateria estado) {
 		this.estado = estado;
 	}
+
+	public List<Materia> getDependencias() {
+		return dependencias;
+	}
+
+	public void setDependencias(List<Materia> dependencias) {
+		this.dependencias = dependencias;
+	}
+	
 }

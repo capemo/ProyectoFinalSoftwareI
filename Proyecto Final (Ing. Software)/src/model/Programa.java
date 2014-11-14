@@ -21,7 +21,6 @@ public class Programa extends Model implements Serializable {
 		this.nombrePrograma = nombrePrograma;
 		this.materias = materias;
 		this.descripcion = descripcion;
-
 	}
 
 	public String getNombrePrograma() {

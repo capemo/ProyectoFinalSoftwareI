@@ -8,12 +8,10 @@ import view.View;
 public abstract class Model implements Serializable{
 	private static final long serialVersionUID = 4661669179019051113L;
 
-// revisar*****
 	public static Model getPrograma() {
 		return new Programa();
 	}
-
-	// metodos abstractos
+	
 	public abstract void start(View v);
 
 	public abstract void refreshView();
