@@ -228,7 +228,7 @@ public class StandardView extends View implements ActionListener, Serializable {
 		lblMateriasVistas.setText("MATERIAS VISTAS");
 		lblMateriasVistas.setHorizontalTextPosition(SwingConstants.CENTER);
 
-		panelListaMateriasVistas.setPreferredSize(new Dimension(151, 2000));
+		panelListaMateriasVistas.setPreferredSize(new Dimension(151, 10000));
 
 		jScrollPaneMateriasVistas.setViewportView(panelListaMateriasVistas);
 
